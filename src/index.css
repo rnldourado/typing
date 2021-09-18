@@ -47,6 +47,7 @@ body {
 }
 
 .container .completed-words {
+  padding: 20px 40px 20px 60px;
   width: max-content;
   height: 100vh;
   overflow-y: scroll;
@@ -54,9 +55,8 @@ body {
   top: 0;
   right: 0;
   text-align: left;
-  padding: 20px 40px;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
   opacity: .5;
 }
 
