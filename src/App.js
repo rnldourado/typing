@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Timer } from './components/timer';
 
 import wordList from './resources/words.json';
 
-const MAX_TYPED_KEYS = 30;
+const MAX_TYPED_KEYS = 20;
 const WORD_ANIMATION_INTERVAL = 100;
+const HIDE_WORDS = [
+                    "Backspace", 
+                    "Alt", 
+                    "Control", 
+                    "Shift", 
+                    "Enter", 
+                    "CapsLock", 
+                    "Tab", 
+                    "Meta", 
+                    "Escape",
+                  ]
 
 const getWord = () => {
   const index = Math.floor(Math.random() * wordList.length);
@@ -42,10 +54,11 @@ const App = () => {
   const [word, setWord] = useState("");
   const [completedWords, setCompletedWords] = useState([]);
   const containerRef = useRef(null);
+  const [startTimer, setStartTimer] = useState(false)
 
   useEffect(() => {
     setWord(getWord());
-    if(containerRef) containerRef.current.focus();
+    if (containerRef) containerRef.current.focus();
   }, [])
 
   useEffect(() => {
@@ -67,17 +80,22 @@ const App = () => {
       }, WORD_ANIMATION_INTERVAL)
     }
 
-    return () =>{
-      if(timeout) clearTimeout(timeout);
+    return () => {
+      if (timeout) clearTimeout(timeout);
     }
 
   }, [word, validKeys, completedWords])
 
   const handleKeyDown = (e) => {
+
+    if(!startTimer) setStartTimer(true)
+
     e.preventDefault();
     const { key } = e;
 
-    setTypedKeys((prev) => [...prev, key].slice(MAX_TYPED_KEYS * -1));
+    if (!HIDE_WORDS.includes(key)) {
+      setTypedKeys((prev) => [...prev, key].slice(MAX_TYPED_KEYS * -1));
+    }
 
     if (isValidKey(key, word)) {
       setValidKeys((prev) => {
@@ -92,6 +110,7 @@ const App = () => {
 
   return (
     <div className="container" tabIndex="0" onKeyDown={handleKeyDown} ref={containerRef}>
+      <Timer stop={startTimer}/>
       <div className="valid-keys">
         <Word word={word} validKeys={validKeys} />
       </div>
