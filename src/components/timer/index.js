@@ -12,7 +12,7 @@ export const Timer = (props) => {
     const seconds = time % 60
 
     useEffect(() => {
-        if (props.stop == true) {
+        if (props.stop === true) {
             setTimeout(() => {
                 if (time === 0){
                     alert("Teste")
