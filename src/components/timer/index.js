@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import "./style.css"
 
-export const Timer = (props) => {
+const Timer = (props) => {
     
 
-    const TIME_IN_SECONDS = 5
+    const TIME_IN_SECONDS = 60
 
     const [time, setTime] = useState(TIME_IN_SECONDS)
 
@@ -12,7 +12,7 @@ export const Timer = (props) => {
     const seconds = time % 60
 
     useEffect(() => {
-        if (props.stop === true) {
+        if (props.startTimer === true) {
             setTimeout(() => {
                 if (time === 0){
                     alert("Teste")
@@ -22,12 +22,15 @@ export const Timer = (props) => {
                 }
             }, 1000)
         }
-    }, [time,props.stop])
+    }, [time,props.startTimer])
 
 
     return (
         <>
             <span className="timer">{("00" + minutes).slice(-2)}:{("00" + seconds).slice(-2)}</span>
+            <progress id="progess" value={time} max={TIME_IN_SECONDS}></progress>
         </>
     )
 }
+
+export { Timer };

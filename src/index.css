@@ -38,7 +38,7 @@ body {
 }
 
 .container .valid-keys .matched {
-  background-color: #fdf8c5;
+  background-color: #d2fcff;
   color: #282c34;
 }
 .container .valid-keys .matched.completed {
@@ -83,6 +83,16 @@ body {
 
 .container:focus{
   outline: none;
+}
+
+.author {
+  font-family: "Poppins", sans-serif;
+  margin-top: 10px;
+  font-size: .8rem;
+}
+
+.author a {
+  color: #d2fcff;
 }
 
 @keyframes moveDown {

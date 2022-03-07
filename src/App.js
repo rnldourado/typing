@@ -5,7 +5,7 @@ import wordList from './resources/words.json';
 
 const MAX_TYPED_KEYS = 20;
 const WORD_ANIMATION_INTERVAL = 100;
-const HIDE_WORDS = [
+const SPECIAL_KEYS = [
                     "Backspace", 
                     "Alt", 
                     "Control", 
@@ -15,6 +15,31 @@ const HIDE_WORDS = [
                     "Tab", 
                     "Meta", 
                     "Escape",
+                    "F1",
+                    "F2",
+                    "F3",
+                    "F4",
+                    "F5",
+                    "F6",
+                    "F7",
+                    "F8",
+                    "F9",
+                    "F10",
+                    "F11",
+                    "F12",
+                    "ContextMenu",
+                    "Pause",
+                    "Delete",
+                    "Home",
+                    "PageDown",
+                    "PageUp",
+                    "End",
+                    "Insert",
+                    "NumLock",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "ArrowUp",
+                    "ArrowDown"
                   ]
 
 const getWord = () => {
@@ -90,10 +115,12 @@ const App = () => {
 
     if(!startTimer) setStartTimer(true)
 
-    e.preventDefault();
     const { key } = e;
+    if(!key === "F5"){
+      e.preventDefault();
+    }
 
-    if (!HIDE_WORDS.includes(key)) {
+    if (!SPECIAL_KEYS.includes(key)) {
       setTypedKeys((prev) => [...prev, key].slice(MAX_TYPED_KEYS * -1));
     }
 
@@ -110,7 +137,7 @@ const App = () => {
 
   return (
     <div className="container" tabIndex="0" onKeyDown={handleKeyDown} ref={containerRef}>
-      <Timer stop={startTimer}/>
+      <Timer startTimer={startTimer}/>
       <div className="valid-keys">
         <Word word={word} validKeys={validKeys} />
       </div>
@@ -122,6 +149,7 @@ const App = () => {
           })}
         </ol>
       </div>
+      <span className="author">Maded with React by <a href="https://github.com/rnldourado">Raniel Dourado</a> - <a href="https://github.com/rnldourado/typing">GitHub</a></span>
     </div>
   )
 }
